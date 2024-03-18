@@ -100,7 +100,7 @@ def cli():
         "\n"
         .format(
             b=_BLUE, g=_GREEN, y=_YELLOW, x=_RESET,
-            github_issues="https://github.com/thoughtspot/cs_tools/issues/new/choose"
+            github_issues="https://github.com/ravikri-bh/cs_tools/issues/new/choose"
         )
     )
 
@@ -141,7 +141,7 @@ def cli():
                 log.info("Getting the latest CS Tools {beta}release.".format(beta="beta " if args.beta else ""))
                 release = get_latest_cs_tools_release(allow_beta=args.beta)
                 log.info("Found version: {p}{tag}{x}".format(p=_PURPLE, x=_RESET, tag=release["tag_name"]))
-                requires += " @ https://github.com/thoughtspot/cs_tools/archive/{tag}.zip".format(tag=release["tag_name"])
+                requires += " @ https://github.com/ravikri-bh/cs_tools/archive/{tag}.zip".format(tag=release["tag_name"])
 
             log.info("Installing CS Tools and its dependencies.")
             venv.pip("install", requires, "--upgrade", "--progress-bar", "on" if args.verbose else "off")
@@ -393,7 +393,7 @@ def get_cs_tools_venv(find_links):
 
     if not updater_py.exists():
         log.info("Missing '{updater}', downloading from GitHub".format(updater=updater_py))
-        url = "https://api.github.com/repos/thoughtspot/cs_tools/contents/cs_tools/updater/_updater.py"
+        url = "https://api.github.com/repos/ravikri-bh/cs_tools/contents/cs_tools/updater/_updater.py"
         data = http_request(url)
         data = http_request(data["download_url"], to_json=False)
         updater_py.write_text(data.decode())
@@ -407,7 +407,7 @@ def get_cs_tools_venv(find_links):
     except ModuleNotFoundError:
         log.info(
             "Unable to find the CS Tools _updater.py, try getting at "
-            "{b}https://github.com/thoughtspot/cs_tools/releases/latest{x}"
+            "{b}https://github.com/ravikri-bh/cs_tools/releases/latest{x}"
             .format(b=_BLUE, x=_RESET)
         )
         raise SystemExit(1) from None
@@ -492,7 +492,7 @@ def get_latest_cs_tools_release(allow_beta=False, timeout=None):
     """
     Get the latest CS Tools release.
     """
-    releases = http_request("https://api.github.com/repos/thoughtspot/cs_tools/releases", timeout=timeout)
+    releases = http_request("https://api.github.com/repos/ravikri-bh/cs_tools/releases", timeout=timeout)
 
     for release in releases:
         if release["prerelease"] and not allow_beta:
